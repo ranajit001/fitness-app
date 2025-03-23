@@ -14,12 +14,15 @@ import avatar_upload_router from './routes/profile_img_upload.route.js';
 import { setupSocket } from './controllers/message.controller.js';
 
 const app = express();
+
+app.use(express.json());
+app.use(cors())
+
 const server = http.createServer(app);
 setupSocket(server)
 
 
-app.use(express.json());
-app.use(cors())
+
 
 
 

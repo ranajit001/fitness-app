@@ -1,8 +1,8 @@
 import { Server } from "socket.io";
-import connectDB from "../configs/mongodb.config.js";
+// import connectDB from "../configs/mongodb.config.js";
 import jwt from 'jsonwebtoken';
 import cors from 'cors'
-connectDB();
+// connectDB();
 
 let io;
 
