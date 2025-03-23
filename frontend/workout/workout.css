@@ -1,0 +1,142 @@
+    /* CSS Styles */
+    * {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+      }
+      
+      body {
+        font-family: Arial, sans-serif;
+        line-height: 1.6;
+        background-color: #f5f5f5;
+        color: #333;
+      }
+      
+      .container {
+        max-width: 800px;
+        margin: 0 auto;
+        padding: 20px;
+      }
+      
+      h1 {
+        text-align: center;
+        margin-bottom: 20px;
+        color: #2c3e50;
+      }
+      
+      h2 {
+        margin: 20px 0;
+        color: #2c3e50;
+        border-bottom: 2px solid #3498db;
+        padding-bottom: 5px;
+      }
+      
+      #message {
+        padding: 10px;
+        margin-bottom: 15px;
+        min-height: 20px;
+        font-weight: bold;
+        text-align: center;
+      }
+      
+      /* Form Styles */
+      form {
+        background-color: white;
+        padding: 20px;
+        border-radius: 8px;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        margin-bottom: 20px;
+      }
+      
+      label {
+        display: block;
+        margin: 10px 0 5px;
+        font-weight: bold;
+      }
+      
+      input[type="text"],
+      input[type="number"],
+      select {
+        width: 100%;
+        padding: 10px;
+        border: 1px solid #ddd;
+        border-radius: 4px;
+        margin-bottom: 10px;
+        font-size: 16px;
+      }
+      
+      button {
+        background-color: #3498db;
+        color: white;
+        border: none;
+        padding: 10px 15px;
+        border-radius: 4px;
+        cursor: pointer;
+        font-size: 16px;
+        font-weight: bold;
+        margin-top: 10px;
+        width: 100%;
+      }
+      
+      button:hover {
+        background-color: #2980b9;
+      }
+      
+      /* Workout List Styles */
+      #workoutList {
+        list-style: none;
+      }
+      
+      .workout-item {
+        background-color: white;
+        margin-bottom: 15px;
+        border-radius: 8px;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        overflow: hidden;
+        display: flex;
+        justify-content: space-between;
+      }
+      
+      .workout-info {
+        padding: 15px;
+        flex-grow: 1;
+      }
+      
+      .workout-info h3 {
+        margin-bottom: 10px;
+        color: #2c3e50;
+      }
+      
+      .workout-info p {
+        margin: 5px 0;
+        color: #555;
+      }
+      
+      .progress-bar {
+        background-color: #ecf0f1;
+        height: 10px;
+        border-radius: 5px;
+        margin-top: 10px;
+        overflow: hidden;
+      }
+      
+      .progress {
+        background-color: #3498db;
+        height: 100%;
+      }
+      
+      .workout-actions {
+        padding: 15px;
+        display: flex;
+        align-items: center;
+      }
+      
+      .edit-btn {
+        background-color: #2ecc71;
+        margin: 0;
+        width: auto;
+      }
+      
+      .edit-btn:hover {
+        background-color: #27ae60;
+      }

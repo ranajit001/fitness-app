@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fitness App</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: Arial, sans-serif;
+        }
+        body {
+            background: linear-gradient(to right, #00c6ff, #0072ff);
+            color: white;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            text-align: center;
+            flex-direction: column;
+        }
+        h1 {
+            font-size: 3rem;
+            margin-bottom: 10px;
+        }
+        p {
+            font-size: 1.2rem;
+            margin-bottom: 20px;
+        }
+        .btn {
+            background: white;
+            color: #0072ff;
+            padding: 12px 25px;
+            font-size: 1rem;
+            border: none;
+            border-radius: 25px;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+        .btn:hover {
+            background: #f0f0f0;
+        }
+        .logo {
+            width: 150px;
+            height: 150px;
+            margin-bottom: 20px;
+            border-radius: 50%;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+            object-fit: cover;
+        }
+    </style>
+</head>
+<body>
+    <img src="https://i.ibb.co/F9J4FPp/Picsart-25-03-21-12-55-45-109.jpg" alt="Fitness App Logo" class="logo">
+    <h1>Welcome to Your Fitness Journey</h1>
+    <p>Track your workouts, set goals, and stay motivated.</p>
+    <button class="btn" onclick="getStarted()">Get Started</button>
+
+    <script>
+        function getStarted() {
+            window.location.href = '/signup/signup.html'; // Update this to your next page
+        }
+    </script>
+</body>
+</html>

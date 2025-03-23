@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Edit Profile</title>
+<link rel="stylesheet" href="edit-profile.css">
+</head>
+<body>
+  <div class="container">
+    <h1>Edit Profile</h1>
+    
+    <div id="message" class="message"></div>
+    
+    <div class="avatar">
+      <img id="profile-img" src="/api/placeholder/100/100" alt="Profile">
+      <br>
+      <input type="file" id="image-upload" accept="image/*">
+      <button id="upload-img-btn">Upload Photo</button>
+    </div>
+
+    <form id="profile-form">
+      <div class="form-group">
+        <label for="name">Name</label>
+        <input type="text" id="name" name="name">
+      </div>
+      
+      <div class="form-group">
+        <label for="gender">Gender</label>
+        <select id="gender" name="gender">
+          <option value="">Select</option>
+          <option value="male">Male</option>
+          <option value="female">Female</option>
+          <option value="other">Other</option>
+        </select>
+      </div>
+      
+      <div class="form-group">
+        <label for="height">Height (cm)</label>
+        <input type="number" id="height" name="height">
+      </div>
+      
+      <div class="form-group">
+        <label for="weight">Weight (kg)</label>
+        <input type="number" id="weight" name="weight">
+      </div>
+      
+      <div class="buttons">
+        <button type="button" class="cancel-btn" id="cancel-btn">Cancel</button>
+        <button type="submit" class="save-btn">Save Changes</button>
+      </div>
+    </form>
+  </div>
+
+<script src="edit-profile.js"></script>
+</body>
+</html>

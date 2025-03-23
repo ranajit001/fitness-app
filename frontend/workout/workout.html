@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Workout Planner</title>
+  <link rel="stylesheet" href="workout.css">
+</head>
+<body>
+  <div class="container">
+    <h1>Workout Planner</h1>
+    <div id="message"></div>
+
+    <form id="workoutForm">
+      <input type="hidden" id="editId" value="">
+      
+      <label for="type">Workout Title:</label>
+      <input type="text" id="type" name="type" required />
+
+      <label for="target">Target:</label>
+      <input type="number" id="target" name="target" required />
+
+      <label for="unit">Unit:</label>
+      <select id="unit" name="unit">
+        <option value="km">Kilometers</option>
+        <option value="min">Minutes</option>
+        <option value="hr">Hours</option>
+        <option value="reps">Repetitions</option>
+      </select>
+
+      <label for="completed">Completed:</label>
+      <input type="number" id="completed" name="completed" value="0" />
+
+      <button type="submit">Save Workout</button>
+    </form>
+
+    <h2>Your Workouts</h2>
+    <ul id="workoutList"></ul>
+  </div>
+
+  <script>
+    document.addEventListener("DOMContentLoaded", function() {
+      const workoutForm = document.getElementById("workoutForm");
+      const workoutList = document.getElementById("workoutList");
+      const messageElement = document.getElementById("message");
+      
+      function showMessage(message, isError = false) {
+        messageElement.textContent = message;
+        messageElement.style.color = isError ? "red" : "green";
+        setTimeout(() => {
+          messageElement.textContent = "";
+        }, 3000);
+      }
+      
+      function getUserToken() {
+        const user = JSON.parse(localStorage.getItem("user") || "{}");
+        if (!user.token) {
+          showMessage("You are not logged in. Please log in to manage workouts.", true);
+          return null;
+        }
+        return user.token;
+      }
+      
+      async function loadWorkouts() {
+        const token = getUserToken();
+        if (!token) return;
+        
+        try {
+          const response = await fetch("http://localhost:3000/workout/get", {
+            headers: {
+              "Authorization": `Bearer ${token}`
+            }
+          });
+          
+          if (!response.ok) {
+            throw new Error(`HTTP error! Status: ${response.status}`);
+          }
+          
+          const workouts = await response.json();
+          displayWorkouts(workouts);
+        } catch (error) {
+          showMessage(`Error loading workouts: ${error.message}`, true);
+        }
+      }
+      
+      function displayWorkouts(workouts) {
+        workoutList.innerHTML = "";
+        
+        if (!workouts || workouts.length === 0) {
+          workoutList.innerHTML = "<li>No workouts yet. Add your first workout!</li>";
+          return;
+        }
+        
+        workouts.forEach(workout => {
+          const li = document.createElement("li");
+          li.classList.add("workout-item");
+          
+          const progress = Math.min(100, (workout.completed / workout.target) * 100);
+          
+          li.innerHTML = `
+            <div class="workout-info">
+              <h3>${workout.type}</h3>
+              <p>Target: ${workout.target} ${workout.unit}</p>
+              <p>Completed: ${workout.completed} ${workout.unit} (${progress.toFixed(1)}%)</p>
+              <div class="progress-bar">
+                <div class="progress" style="width: ${progress}%"></div>
+              </div>
+            </div>
+            <div class="workout-actions">
+              <button class="edit-btn" data-id="${workout._id}">Edit</button>
+            </div>
+          `;
+          
+          workoutList.appendChild(li);
+        });
+        
+        document.querySelectorAll(".edit-btn").forEach(button => {
+          button.addEventListener("click", function(e) {
+            const workoutId = e.target.getAttribute("data-id");
+            populateEditForm(workoutId, workouts);
+          });
+        });
+      }
+      
+      function populateEditForm(workoutId, workouts) {
+        const workout = workouts.find(w => w._id === workoutId);
+        if (!workout) return;
+        
+        document.getElementById("editId").value = workout._id;
+        document.getElementById("type").value = workout.type;
+        document.getElementById("target").value = workout.target;
+        document.getElementById("unit").value = workout.unit;
+        document.getElementById("completed").value = workout.completed;
+        
+        document.getElementById("type").focus();
+      }
+      
+      async function handleWorkoutSubmit(event) {
+        event.preventDefault();
+        
+        const token = getUserToken();
+        if (!token) return;
+        
+        const type = document.getElementById("type").value.trim();
+        const targetValue = document.getElementById("target").value.trim();
+        const unit = document.getElementById("unit").value;
+        const completedValue = document.getElementById("completed").value.trim();
+        const editId = document.getElementById("editId").value;
+        
+        if (!type) {
+          showMessage("Please enter a workout type", true);
+          return;
+        }
+        
+        if (!targetValue || isNaN(targetValue) || +targetValue <= 0) {
+          showMessage("Please enter a valid target greater than 0", true);
+          return;
+        }
+        
+        const workoutData = {
+          type: type,
+          target: targetValue,
+          unit: unit,
+          completed: completedValue ? parseInt(completedValue) : 0
+        };
+        
+        try {
+          let url = "http://localhost:3000/workout/create";
+          let method = "POST";
+          let successMessage = "Workout added successfully!";
+          
+          // If editing existing workout, use update endpoint
+          if (editId) {
+            url = `http://localhost:3000/workout/update/${editId}`;
+            method = "PUT";
+            successMessage = "Workout updated successfully!";
+          }
+          
+          const response = await fetch(url, {
+            method: method,
+            headers: {
+              "Content-Type": "application/json",
+              "Authorization": `Bearer ${token}`
+            },
+            body: JSON.stringify(workoutData)
+          });
+          
+          if (!response.ok) {
+            const errorData = await response.json().catch(() => ({}));
+            throw new Error(errorData.message || `HTTP error! Status: ${response.status}`);
+          }
+          
+          // Reset form
+          workoutForm.reset();
+          document.getElementById("editId").value = "";
+          document.getElementById("completed").value = "0";
+          
+          showMessage(successMessage);
+          loadWorkouts();
+        } catch (error) {
+          showMessage(`Error saving workout: ${error.message}`, true);
+        }
+      }
+      
+      workoutForm.addEventListener("submit", handleWorkoutSubmit);
+      loadWorkouts();
+    });
+  </script>
+</body>
+</html>

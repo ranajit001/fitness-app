@@ -1,0 +1,142 @@
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  }
+  
+  body {
+    background: linear-gradient(135deg, #6DD5FA, #2980B9);
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 1rem;
+  }
+  
+  /* Container - Bigger UI */
+  .container {
+    background-color: #fff;
+    border-radius: 8px;
+    width: 95%;
+    max-width: 900px;
+    padding: 2rem;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+  }
+  
+  h2 {
+    text-align: center;
+    color: #2980B9;
+    font-size: 2rem;
+  }
+  
+  h3 {
+    color: #2980B9;
+    margin-bottom: 1rem;
+    font-size: 1.5rem;
+  }
+  
+  /* Input and Buttons */
+  input[type="text"] {
+    width: 100%;
+    padding: 1rem;
+    margin: 0.5rem 0;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    font-size: 1rem;
+  }
+  
+  button {
+    background-color: #2980B9;
+    color: #fff;
+    border: none;
+    padding: 1rem 1.5rem;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 1rem;
+    transition: background-color 0.3s ease;
+  }
+  
+  button:hover {
+    background-color: #1F6391;
+  }
+  
+  /* Status */
+  #status {
+    color: #e74c3c;
+    text-align: center;
+    font-size: 1rem;
+  }
+  
+  /* Chat Section */
+  #chat-section {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+  }
+  
+  /* WhatsApp-like Chat Box */
+  #chatbox {
+    display: flex;
+    flex-direction: column;
+    height: 500px;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    overflow: hidden;
+    background-color: #fff;
+  }
+  
+  /* Chat Header */
+  #chatbox h3 {
+    background-color: #ededed;
+    padding: 1rem;
+    margin: 0;
+    font-size: 1.25rem;
+    border-bottom: 1px solid #ddd;
+  }
+  
+  /* Messages Area */
+  #messages {
+    flex: 1;
+    background-color: #e5ddd5;
+    padding: 1rem;
+    overflow-y: auto;
+  }
+  
+  #messages p {
+    margin-bottom: 0.75rem;
+    font-size: 1rem;
+  }
+  
+  /* Message Input Area */
+  #messageInput {
+    border-top: 1px solid #ddd;
+    padding: 1rem;
+    font-size: 1rem;
+    outline: none;
+    width: calc(100% - 2rem);
+  }
+  
+  #sendMessage {
+    width: 100%;
+    border: none;
+    border-top: 1px solid #ddd;
+    padding: 1rem;
+    background-color: #2980B9;
+    color: #fff;
+    cursor: pointer;
+    font-size: 1rem;
+    transition: background-color 0.3s ease;
+  }
+  
+  #sendMessage:hover {
+    background-color: #1F6391;
+  }
+  
+  /* Hidden class */
+  .hidden {
+    display: none;
+  }

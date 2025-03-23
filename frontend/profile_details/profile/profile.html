@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>User Profile</title>
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="profile.css">
+</head>
+<body>
+  <div class="container">
+    <header>
+      <h1>User Profile</h1>
+    </header>
+
+    <div class="profile-container">
+      <div class="profile-header">
+        <div class="profile-avatar">
+          <i class="fas fa-user profile-avatar-placeholder" id="avatar-placeholder"></i>
+          <img id="profile-image" style="display: none;">
+        </div>
+        <div class="profile-header-content">
+          <h2 class="profile-name" id="profile-name">John Doe</h2>
+          <p class="profile-email" id="profile-email">john.doe@example.com</p>
+          <div class="profile-stats">
+            <div class="profile-stat">                                                                    
+              <span class="profile-stat-value" id="profile-height">175</span> cm
+            </div>
+            <div class="profile-stat">
+              <span class="profile-stat-value" id="profile-weight">70</span> kg
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="profile-body">
+        <div class="profile-section">
+          <h3 class="section-title">
+            <i class="fas fa-user-circle"></i> Basic Information
+          </h3>
+          <div class="profile-details">
+            <div class="detail-item">
+              <div class="detail-label">Full Name</div>
+              <div class="detail-value" id="detail-name">John Doe</div>
+            </div>
+            <div class="detail-item">
+              <div class="detail-label">Email</div>
+              <div class="detail-value" id="detail-email">john.doe@example.com</div>
+            </div>
+            <div class="detail-item">
+              <div class="detail-label">Gender</div>
+              <div class="detail-value" id="detail-gender">Male</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="profile-section">
+          <h3 class="section-title">
+            <i class="fas fa-tape"></i> Physical Measurements
+          </h3>
+          <div class="profile-details">
+            <div class="detail-item">
+              <div class="detail-label">Height</div>
+              <div class="detail-value"><span id="detail-height">175</span> cm</div>
+            </div>
+            <div class="detail-item">
+              <div class="detail-label">Weight</div>
+              <div class="detail-value"><span id="detail-weight">70</span> kg</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="profile-section">
+          <h3 class="section-title">
+            <i class="fas fa-tags"></i> Tags
+          </h3>
+          <div class="tags-container" id="tags-container">
+            <!-- Tags will be added here dynamically -->
+          </div>
+        </div>
+      </div>
+
+      <div class="profile-actions">
+        <button class="btn btn-primary" id="edit-profile-btn">
+          <i class="fas fa-edit"></i> Edit Profile
+        </button>
+        <button class="btn btn-primary" style="margin-left:10px; background-color: #004e78;" onclick="window.location.href ='../../HomePage/home_page.html'    " >
+          Go to Dashboard
+      </button>
+      
+      </div>
+    </div>
+  </div>
+
+  <script src="profile.js"></script>
+</body>
+</html>

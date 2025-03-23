@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>fitTrack</title>
+  <script src="https://cdn.socket.io/4.5.4/socket.io.min.js"></script>
+  <link rel="stylesheet" href="chat.css">
+</head>
+<body>
+  <div class="container">
+    <h2>fitTrack</h2>
+    
+    <div id="auth">
+      <p>Authenticating...</p>
+    </div>
+
+    <div id="chat-section" class="hidden">
+      <h3>Enter Hashtags</h3>
+      <input type="text" id="hashtags" placeholder="Enter hashtags (comma separated)" />
+      <button id="findChat">Find Chat</button>
+      <p id="status"></p>
+
+      <div id="chatbox" class="hidden">
+        <h3>Chatting with: <span id="chatWith" style="color: #e74c3c;">No match</span></h3>
+        <div id="messages"></div>
+        <input type="text" id="messageInput" placeholder="Type a message" />
+        <button id="sendMessage">Send</button>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    const user = JSON.parse(localStorage.getItem('user'));
+    const socket = io("http://localhost:3000", {
+      auth: { token: user.token }
+    });
+
+    let chatWith = null;
+
+    // Authenticate User
+    socket.on("connect", () => {
+      document.getElementById("auth").innerHTML = "<p>Authenticated</p>";
+      document.getElementById("chat-section").classList.remove("hidden");
+    });
+
+    // Find a Chat
+    document.getElementById("findChat").addEventListener("click", () => {
+      // Clear previous messages and chat partner info when new hashtags are submitted.
+      document.getElementById("messages").innerHTML = "";
+      chatWith = null;
+      document.getElementById("chatbox").classList.add("hidden");
+
+      const hashtags = document.getElementById("hashtags").value
+        .split(",")
+        .map(h => h.trim())
+        .filter(h => h.length > 0);
+
+      if (hashtags.length === 0) {
+        document.getElementById("status").textContent = "Please enter at least one hashtag.";
+        return;
+      }
+
+      socket.emit("find_chat", hashtags);
+      document.getElementById("status").textContent = "Searching for a chat...";
+    });
+
+    // Chat Found
+    socket.on("chat_found", (data) => {
+      chatWith = data.chatWith;
+      document.getElementById("chatbox").classList.remove("hidden");
+      document.getElementById("chatWith").textContent = chatWith;
+      document.getElementById("status").textContent = "";
+    });
+
+    // No Match Found
+    socket.on("no_match_found", () => {
+      document.getElementById("status").textContent = "No match found, wait until someone joins or try a new hashtag.";
+    });
+
+    // Send Message
+    document.getElementById("sendMessage").addEventListener("click", () => {
+      const message = document.getElementById("messageInput").value;
+      if (chatWith && message.trim() !== "") {
+        socket.emit("send_message", { message, to: chatWith });
+        document.getElementById("messages").innerHTML += `<p><b>You:</b> ${message}</p>`;
+        document.getElementById("messageInput").value = "";
+      }
+    });
+
+    // Receive Message
+    socket.on("receive_message", ({ message, from }) => {
+      document.getElementById("messages").innerHTML += `<p><b>${from.split('@')[0]}:</b> ${message}</p>`;
+    });
+  </script>
+</body>
+</html>
