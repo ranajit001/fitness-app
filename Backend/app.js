@@ -28,7 +28,9 @@ app.use('/verify',OTP_router)
 app.use('/workout',WorkoutRouter)
 app.use('/profile_photo',avatar_upload_router)
 
-
+app.get('/',(req,res)=>{
+    res.status(200).send('all ok ')
+})
 
 
 
