@@ -7,7 +7,7 @@ FitTrack is a dynamic fitness tracking backend application developed for the Mas
          Fullstack
 
 ## Deplolyed App
-* Frontend: Natlify
+* Frontend: https://statuesque-raindrop-6420ec.netlify.app/
 
 * Backend: Render
 
